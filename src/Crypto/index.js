@@ -18,9 +18,11 @@ export default class Crypto extends Component {
   currentView = () => {
     switch (this.state.selected) {
       case 'currencies':
+      this.props.currentTab("currencies");
         return <Currencies />
         break;
       case 'ico':
+      this.props.currentTab("ico");
         return <Icos />
         break;
       default:

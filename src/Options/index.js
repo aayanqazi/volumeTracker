@@ -18,9 +18,11 @@ export default class Options extends Component {
   currentView = () => {
     switch (this.state.selected) {
       case 'call':
+      this.props.currentTab("call");
         return <Call />
         break;
       case 'put':
+      this.props.currentTab("put");
         return <Put />
         break;
       default:

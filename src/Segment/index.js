@@ -18,13 +18,13 @@ export default class Segments extends Component {
   getCurrentContent = () => {
     switch (this.state.selected) {
       case 'stock':
-        return <Stocks />
+        return <Stocks currentTab={this.props.currentTab}/>
         break;
       case 'options':
-        return <Options />
+        return <Options currentTab={this.props.currentTab}/>
         break;
       case 'crypto':
-        return <Crypto />
+        return <Crypto currentTab={this.props.currentTab}/>
         break;
       default:
         return null;

@@ -20,15 +20,19 @@ export default class Stocks extends Component {
   currentView = () => {
     switch (this.state.selected) {
       case 'nasdaqup':
+      this.props.currentTab("nasdaqup");
         return <Nasdqup />
         break;
       case 'nasdaqdown':
+      this.props.currentTab("nasdaqdown");
         return <NasdqDown />
         break;
       case 'nyseup':
+      this.props.currentTab("nyseup");
         return <NyseUp />
         break;
       case 'nysedown':
+      this.props.currentTab("nysedown");
         return <NyseDown />
         break;
       default:

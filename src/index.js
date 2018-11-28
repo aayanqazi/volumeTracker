@@ -6,28 +6,24 @@ import { Container } from 'native-base';
 import Segments from "./Segment/index";
 
 export default class App extends Component {
+  state = {
+    currentTab : 'nasdaqup'
+  }
+
+  currentTab = (val) =>{
+    if(this.state.currentTab !== val)
+    this.setState({
+      currentTab: val
+    })
+  }
+
   render() {
+    alert(this.state.currentTab)
     return (
       <Container>
         <Header />
-        <Segments />
+        <Segments currentTab={this.currentTab}/>
       </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
