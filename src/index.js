@@ -18,7 +18,6 @@ export default class App extends Component {
   }
 
   render() {
-    alert(this.state.currentTab)
     return (
       <Container>
         <Header />

@@ -1,15 +1,20 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Container, Content, Spinner } from 'native-base';
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Numeral from 'numeral';
 import moment from "moment";
+import Detail from "../ModalBox";
+
 
 export default class Table extends Component {
+  state = {
+    modal: false,
+    data: null
+  }
 
   renderRow(val, index) {
     if (this.props.call) {
       return (
-        <View key={index} style={style.row}>
+        <TouchableOpacity key={index} style={style.row}>
           <View style={style.data}>
             <Text style={style.textColor}>{val.symbol}</Text>
           </View>
@@ -25,12 +30,12 @@ export default class Table extends Component {
           <View style={style.data}>
             <Text style={style.textColor}>{val.vol_oi_ratio}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       )
     }
     if (this.props.currencies) {
       return (
-        <View key={index} style={style.row}>
+        <TouchableOpacity key={index} style={style.row}>
           <View style={style.data}>
             <Text style={style.textColor}>{val.symbol}</Text>
           </View>
@@ -38,17 +43,17 @@ export default class Table extends Component {
             <Text style={style.textColor}>{`$${Numeral(val.price_usd).format('0,0.00000')}`}</Text>
           </View>
           <View style={style.data}>
-            <Text style={[style.textColor,parseInt(val.percent_change_1h) >= 0? {color:'green'}: {color:'red'}]}>{val.percent_change_1h}</Text>
+            <Text style={[style.textColor, parseInt(val.percent_change_1h) >= 0 ? { color: 'green' } : { color: 'red' }]}>{val.percent_change_1h}</Text>
           </View>
           <View style={style.data}>
             <Text style={style.textColor}>{Numeral(val.volume_usd_24h).format('0,0')}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       )
     }
     if (this.props.ico) {
       return (
-        <View key={index} style={style.row}>
+        <TouchableOpacity onPress={() => this._toggleModal(val)} key={index} style={style.row}>
           <View style={style.data}>
             <Text style={style.textColor}>{val.name}</Text>
           </View>
@@ -62,13 +67,13 @@ export default class Table extends Component {
             <Text style={style.textColor}>{val.current_price}</Text>
           </View>
           <View style={style.data}>
-            <Text style={[style.textColor,parseInt(val.roi_24h) >= 0? {color:'green'}: {color:'red'}]}>{val.roi_24h}</Text>
+            <Text style={[style.textColor, parseInt(val.roi_24h) >= 0 ? { color: 'green' } : { color: 'red' }]}>{val.roi_24h}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       )
     }
     return (
-      <View key={index} style={style.row}>
+      <TouchableOpacity onPress={() => this._toggleModal(val)} key={index} style={style.row}>
         <View style={style.data}>
           <Text style={style.textColor}>{val.symbol}</Text>
         </View>
@@ -81,7 +86,7 @@ export default class Table extends Component {
         <View style={style.data}>
           <Text style={style.textColor}>{val.volume_shares}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -92,6 +97,17 @@ export default class Table extends Component {
       </View>
     )
   }
+
+
+  _toggleModal = (item) => {
+    if (this.state.modal) {
+      this.setState({ modal: !this.state.modal, data: null });
+    }
+    else {
+      this.setState({ modal: !this.state.modal, data: item });
+    }
+  }
+
 
   renderHeader = () => {
     return (
@@ -114,11 +130,17 @@ export default class Table extends Component {
             <Text style={[style.subheading, { color: this.props.color }]}>
               Data Last Updated:
           </Text>
+            <Detail
+              open={this.state.modal}
+              details={this.state.data}
+              _toggleModal={this._toggleModal}
+              {...this.props}
+            />
             {
               this.props.data && this.props.data.length > 0 &&
               <Text style={[style.subheading, { color: this.props.color }]}>
-                {this.props.currencies?new Date(moment.unix(this.props.data[0].last_updated).utc().format()).toString():
-                 new Date(this.props.data[0].utc).toString()
+                {this.props.currencies ? new Date(moment.unix(this.props.data[0].last_updated).utc().format()).toString() :
+                  new Date(this.props.data[0].utc).toString()
                 }
               </Text>
             }
