@@ -14,7 +14,7 @@ export default class Table extends Component {
   renderRow(val, index) {
     if (this.props.call) {
       return (
-        <TouchableOpacity key={index} style={style.row}>
+        <TouchableOpacity onPress={() => this._toggleModal(val)} key={index} style={style.row}>
           <View style={style.data}>
             <Text style={style.textColor}>{val.symbol}</Text>
           </View>
@@ -35,7 +35,7 @@ export default class Table extends Component {
     }
     if (this.props.currencies) {
       return (
-        <TouchableOpacity key={index} style={style.row}>
+        <TouchableOpacity onPress={() => this._toggleModal(val)} key={index} style={style.row}>
           <View style={style.data}>
             <Text style={style.textColor}>{val.symbol}</Text>
           </View>
@@ -130,12 +130,15 @@ export default class Table extends Component {
             <Text style={[style.subheading, { color: this.props.color }]}>
               Data Last Updated:
           </Text>
+          {
+            this.state.modal && 
             <Detail
               open={this.state.modal}
               details={this.state.data}
               _toggleModal={this._toggleModal}
               {...this.props}
             />
+          }
             {
               this.props.data && this.props.data.length > 0 &&
               <Text style={[style.subheading, { color: this.props.color }]}>
