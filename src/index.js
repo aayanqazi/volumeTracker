@@ -20,7 +20,7 @@ export default class App extends Component {
   render() {
     return (
       <Container>
-        <Header />
+        <Header {...this.props}/>
         <Segments currentTab={this.currentTab}/>
       </Container>
     );

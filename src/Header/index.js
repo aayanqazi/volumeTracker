@@ -16,7 +16,7 @@ export default class HeaderComponent extends Component {
         </Body>
         <Right>
           <Button transparent>
-            <Icon name='search' type="FontAwesome" />
+            <Icon onPress={() => this.props.navigation.push('Search')} name='search' type="FontAwesome" />
           </Button>
         </Right>
       </Header>
