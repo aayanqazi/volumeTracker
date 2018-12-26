@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { Container, Header, Item, Input, Icon, Button, Text, Body, Right, Left } from 'native-base';
+import axios from "axios";
 
 export default class Search extends Component {
   state = {
     ticker_symbol: ''
   }
   onSubmit = () => {
-    let formdata = new FormData();
-    formdata.append("input", 'APPL')
-    fetch('http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp',{
-      method: 'GET',
-      body:formdata,
-    }).then(val=>console.warn(val)).catch(err=>{
+    axios.get(`http://dev.markitondemand.com/MODApis/Api/v2/Lookup/jsonp?input=${this.state.ticker_symbol}`)
+    .then(val=>{
+      var arr = val.replace('myFunction(','');
+      console.warn(arr)
+    })
+      .catch(err=>{
       console.warn(err)
-    }).catch(err=>{
-      
     })
   }
   render() {

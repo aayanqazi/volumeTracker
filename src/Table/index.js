@@ -90,11 +90,12 @@ export default class Table extends Component {
     );
   }
 
+
   renderHeaderRow = (val, ind) => {
     return (
-      <View key={ind} style={[val.center ? style.data : style.centerRow]}>
+      <TouchableOpacity onPress={()=>this.props.onSortingArray(val.name)}  key={ind} style={[val.center ? style.data : style.centerRow]}>
         <Text style={[style.textColor, style.textHeadline]}>{val.name}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
