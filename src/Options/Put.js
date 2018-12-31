@@ -72,9 +72,9 @@ export default class Call extends Component {
   VolumePercentageSorting = () =>{
     let sortingArray = this.state.data.sort((a, b) => {
       if (this.state.volume_percentage)
-        return a.volume - b.volume;
+        return parseInt(a.volume.replace(/,/g, '')) > parseInt(b.volume.replace(/,/g, '')) ? 1 : -1;
       else {
-        return b.volume - a.volume;
+        return parseInt(a.volume.replace(/,/g, '')) > parseInt(b.volume.replace(/,/g, '')) ? -1 : 1;
       }
     });
     this.setState({

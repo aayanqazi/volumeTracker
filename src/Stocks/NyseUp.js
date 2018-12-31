@@ -42,9 +42,9 @@ export default class NyseUp extends Component {
   companySorting = () =>{
     let sortingArray = this.state.data.sort((a, b) => {
       if (this.state.companySort)
-        return a.company > b.company ? 1 : -1;
+        return a.company.toLocaleLowerCase() > b.company.toLocaleLowerCase() ? 1 : -1;
       else {
-        return a.company > b.company ? -1 : 1;
+        return a.company.toLocaleLowerCase() > b.company.toLocaleLowerCase() ? -1 : 1;
       }
     });
     this.setState({
@@ -70,9 +70,9 @@ export default class NyseUp extends Component {
   VolumeSorting = () =>{
     let sortingArray = this.state.data.sort((a, b) => {
       if (this.state.volumeSort)
-        return a.volume_shares > b.volume_shares ? 1 : -1;
+        return parseInt(a.volume_shares.replace(/,/g, '')) > parseInt(b.volume_shares.replace(/,/g, '')) ? 1 : -1;
       else {
-        return a.volume_shares > b.volume_shares ? -1 : 1;
+        return parseInt(a.volume_shares.replace(/,/g, '')) > parseInt(b.volume_shares.replace(/,/g, '')) ? -1 : 1;
       }
     });
     this.setState({
